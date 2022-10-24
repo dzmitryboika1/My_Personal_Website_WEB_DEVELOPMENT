@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}New Project{% endblock %}
+
+{% block content %}
+
+    <!-- ======= Add New Project ======= -->
+  <section id="new-project" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in-up" data-aos-delay="100">
+      {% if is_edit %}
+        <h1>Edit Project</h1>
+        {% else %}
+          <h1>Add New Project</h1>
+      {% endif %}
+
+      {{ ckeditor.load() }}
+      {{ ckeditor.config(name='description') }}
+
+      <form method="POST" action="{{ url_for('add_new_project') }}" novalidate>
+        {{ form.csrf_token }}
+        <p>
+          {{ form.name.label }} <br> {{ form.name }}
+          <br>
+          {% for err in form.name.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.category.label }} <br> {{ form.category }}
+          <br>
+          {% for err in form.category.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.img_url.label }} <br> {{ form.img_url }}
+          <br>
+          {% for err in form.img_url.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.github_url.label }} <br> {{ form.github_url }}
+          <br>
+          {% for err in form.github_url.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.title.label }} <br> {{ form.title }}
+          <br>
+          {% for err in form.title.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.description.label }} <br> {{ form.description }}
+          <br>
+          {% for err in form.description.errors %}
+          <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        {{form.submit(class="btn-login") }}
+      </form>
+
+    </div>
+
+  </section><!-- End -->
+
+{% endblock %}
