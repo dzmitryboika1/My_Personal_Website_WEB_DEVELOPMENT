@@ -1,4 +1,6 @@
 from datetime import date
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, send_from_directory, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -7,8 +9,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import RegisterForm, LoginForm, CreateProjectForm
 
+load_dotenv()
+
 app = Flask(__name__)
-app.secret_key = "ulHEkm53FSiHFgALO84RdyD"
+app.secret_key = os.environ["SECRET_KEY"]
 Bootstrap(app)
 ckeditor = CKEditor(app)
 
