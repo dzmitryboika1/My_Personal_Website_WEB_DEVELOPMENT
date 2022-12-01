@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block header %}
+  <nav id="navbar" class="navbar order-last order-lg-0">
+    <ul>
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About</a></li>
+      <li><a class="active" href="{{ url_for('portfolio') }}">Portfolio</a></li>
+      <li><a href="{{ url_for('resume') }}">Resume</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact</a></li>
+
+{#      {% if not logged_in %}#}
+{#        <li><a href="{{ url_for('login') }}">Login</a></li>#}
+{#        <li><a href="{{ url_for('register') }}">Register</a></li>#}
+{#      {% else %}#}
+{#        <li><a href="{{ url_for('logout') }}">Log Out</a></li>#}
+{#      {% endif %}#}
+      {% if logged_in %}
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      {% endif %}
+
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav><!-- .navbar -->
+
+{% endblock %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+
+      {% if logged_in %}
+      <a href="{{ url_for('add_new_project') }}" class="btn-download">Add New Project</a>
+      {% endif %}
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Portfolio</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+            consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit
+            in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          {% for project in all_projects %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+              <div class="portfolio-wrap">
+                <img src="{{ url_for('static', filename=project.img_fg_path) }}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>{{ project.name }}</h4>
+                  <p>{{ project.category }}</p>
+                  <div class="portfolio-links">
+                    <a href="{{ url_for('portfolio_details', project_id=project.id) }}"
+                       class="portfolio-details-lightbox"
+                       data-glightbox="type: external" title="Project Details"><i class="bx bx-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}

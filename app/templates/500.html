@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block header %}
+  <nav id="navbar" class="navbar order-last order-lg-0">
+    <ul>
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About</a></li>
+      <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+      <li><a href="{{ url_for('resume') }}">Resume</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact</a></li>
+
+      {% if not logged_in %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+      {% else %}
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      {% endif %}
+
+      {% if logged_in %}
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      {% endif %}
+
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav><!-- .navbar -->
+
+{% endblock %}
+
+{% block content %}
+
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Server Error</h1>
+    </div>
+  </section>
+
+{% endblock %}

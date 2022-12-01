@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}
+  <nav id="navbar" class="navbar order-last order-lg-0">
+    <ul>
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About</a></li>
+      <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+      <li><a href="{{ url_for('resume') }}">Resume</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact</a></li>
+
+{#      {% if not logged_in %}#}
+{#        <li><a class="active" href="{{ url_for('login') }}">Login</a></li>#}
+{#        <li><a href="{{ url_for('register') }}">Register</a></li>#}
+{#      {% else %}#}
+{#        <li><a href="{{ url_for('logout') }}">Log Out</a></li>#}
+{#      {% endif %}#}
+      {% if logged_in %}
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      {% endif %}
+
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav><!-- .navbar -->
+
+{% endblock %}
+
+{% block content %}
+
+  <!-- ======= Register ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Login</h1>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="{{ url_for('login') }}" novalidate>
+        {{ form.csrf_token }}
+        <p> {{ form.email.label }} <br> {{ form.email }}
+          <br>
+          {% for err in form.email.errors %}
+            <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.password.label }} <br> {{ form.password }}
+          <br>
+          {% for err in form.password.errors %}
+            <span style="color:red">{{ err }}</span>
+          {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(class="btn-login") }}</p>
+      </form>
+
+    </div>
+
+  </section><!-- End -->
+
+{% endblock %}
